@@ -1,6 +1,5 @@
 package com.liub.library.mylibraryapp
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.liub.baselibrary.base.BaseActivity
 import com.liub.baselibrary.base.BaseContract
