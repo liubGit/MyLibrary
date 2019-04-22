@@ -1,0 +1,48 @@
+ext {
+    android = [
+            compileSdkVersion: 26,
+            applicationId    : "cn.liub.icccard",
+            targetSdkVersion : 26,
+            minSdkVersion    : 19,
+            versionCode      : 20,
+            versionName      : "1.0"
+
+    ]
+    dependVersion = [
+            support: "26.0.2"
+    ]
+    dependencies = [
+            //android-support
+            "appcompat-v7"        : "com.android.support:appcompat-v7:${dependVersion.support}",
+            "kotlin-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            "design-28"           : "com.android.support:design:${dependVersion.support}",
+            "support-v4"          : "com.android.support:support-v4:${dependVersion.support}",
+            "recyclerview-v7"     : "com.android.support:recyclerview-v7:${dependVersion.support}",
+            //Retrofit
+            "retrofit2"           : "com.squareup.retrofit2:retrofit:2.4.0",
+            "adapter-rxjava2"     : "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
+            "converter-gson"      : "com.squareup.retrofit2:converter-gson:2.4.0",
+            //RxJava
+            "rxjava2"             : "io.reactivex.rxjava2:rxjava:2.1.12",
+            //Rxlife用于管理RxJava的订阅和解除
+            "rxlifecycle2"        : "com.trello.rxlifecycle2:rxlifecycle:2.2.1",
+            "rxlifecomponents"    : "com.trello.rxlifecycle2:rxlifecycle-components:2.2.1",
+            //RxAndroid
+            "rxandroid2"          : "io.reactivex.rxjava2:rxandroid:2.0.2",
+            //butterknife
+            "butterknife-8"       : "com.jakewharton:butterknife:8.8.1",
+
+            //tools
+            "gson"                : "com.google.code.gson:gson:2.8.5",
+
+            //加载图片
+            "glide"               : "com.github.bumptech.glide:glide:3.5.2",
+            //刷新 使用默认风格
+            "smart-refresh-layout": "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21",
+            //没有特殊风格要求不用此header
+            "smart-refresh-header": "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21",
+
+            "greendao3"           : "org.greenrobot:greendao:3.2.2",
+    ]
+
+}
