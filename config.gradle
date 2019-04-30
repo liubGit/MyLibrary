@@ -36,7 +36,7 @@ ext {
             "gson"                : "com.google.code.gson:gson:2.8.5",
 
             //加载图片
-            "glide"               : "com.github.bumptech.glide:glide:3.5.2",
+            "glide"               : "com.github.bumptech.glide:glide:4.0.0",
             //刷新 使用默认风格
             "smart-refresh-layout": "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21",
             //没有特殊风格要求不用此header

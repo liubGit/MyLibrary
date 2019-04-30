@@ -1,17 +1,27 @@
 package com.liub.baselibrary.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.view.View;
 import android.widget.Toast;
 
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.liub.baselibrary.R;
+import com.liub.baselibrary.listener.NoDoubleClickListener;
 import com.liub.baselibrary.utils.ActivityStack;
 import com.liub.baselibrary.utils.ScreenUtils;
+import com.liub.baselibrary.utils.SoftInputUtils;
+import com.liub.baselibrary.widget.AppToolbar;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -22,6 +32,8 @@ public abstract class BaseActivity<P extends BaseContract.IPresenter> extends Rx
 
     protected Context mContext;
     protected P mPresenter;
+    protected Handler mHealder = new LeakHandler(this);
+    private ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,12 +110,12 @@ public abstract class BaseActivity<P extends BaseContract.IPresenter> extends Rx
 
     @Override
     public void showLoding() {
-
+        showLoadingDialog("正在加载...");
     }
 
     @Override
     public void hideLoding() {
-
+        hideLoadingDialog();
     }
 
     @Override
@@ -126,12 +138,109 @@ public abstract class BaseActivity<P extends BaseContract.IPresenter> extends Rx
     }
 
     /**
+     * 设置返回键的默认动作（关闭页面）
+     */
+    public void setToolbarDefaultBackAction(AppToolbar toolbar) {
+        toolbar.setOnBackAction(new NoDoubleClickListener() {
+            @Override
+            public void noDoubleClick(View v) {
+                onBack();
+            }
+        });
+    }
+
+
+    /**
+     * 设置返回键默认动作
+     */
+    public void setToolbarDefaultBackAction() {
+        onBack();
+    }
+
+    private void onBack() {
+        //获取焦点的view getCurrentFocus()
+        if (this.getCurrentFocus() != null) {
+            SoftInputUtils.closeSoftInput(getApplicationContext(), this.getCurrentFocus());
+        }
+        ActivityCompat.finishAfterTransition(this);
+    }
+
+    /**
+     * 显示带消息的进度框
+     *
+     * @param title 提示
+     */
+    protected void showLoadingDialog(String title) {
+        createLoadingDialog();
+        loadingDialog.setMessage(title);
+        if (!loadingDialog.isShowing()){
+            loadingDialog.show();
+        }
+    }
+
+
+    /**
+     * 显示进度框
+     */
+    protected void showLoadingDialog() {
+        createLoadingDialog();
+        if (!loadingDialog.isShowing()) {
+            loadingDialog.show();
+        }
+    }
+
+    /**
+     * 创建LoadingDialog
+     */
+    private void createLoadingDialog() {
+        if (loadingDialog == null) {
+            loadingDialog = new ProgressDialog(this);
+            loadingDialog.setCancelable(true);
+            loadingDialog.setCanceledOnTouchOutside(false);
+        }
+    }
+
+    /**
+     * 隐藏进度框
+     */
+    protected void hideLoadingDialog() {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+        }
+    }
+
+    /**
      * 退出按钮
+     *
      * @param context
      * @param splash
      */
-    public void exitToSplash(Context context, Class<?> splash){
+    public void exitToSplash(Context context, Class<?> splash) {
         ActivityStack.getInstance().finishAllActivity();
-        startActivity(new Intent(context,splash));
+        startActivity(new Intent(context, splash));
+    }
+
+    /**
+     * 防内存泄漏的handler
+     */
+    private static class LeakHandler extends Handler {
+        WeakReference<BaseActivity> reference;
+
+        LeakHandler(BaseActivity activity) {
+            reference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (reference == null) return;
+            BaseActivity activity = reference.get();
+            if (activity != null) {
+                activity.handleMessage(msg);
+            }
+        }
+    }
+
+    protected void handleMessage(Message msg) {
+
     }
 }

@@ -44,5 +44,6 @@ dependencies {
     implementation rootProject.ext.dependencies["rxlifecomponents"]
     implementation rootProject.ext.dependencies["rxandroid2"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["greendao3"]
+    implementation rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["greendao3"]
 }

@@ -12,8 +12,8 @@ class MainActivity : BaseActivity<BasePresenter<BaseContract.IView>>() {
         return null
     }
 
+
     override fun bindView(savedInstanceState: Bundle?) {
 
     }
-
 }
