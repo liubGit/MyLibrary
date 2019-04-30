@@ -32,18 +32,18 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation rootProject.ext.dependencies["kotlin-jdk7"]
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["kotlin-jdk7"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["support-v4"]
 
-    implementation rootProject.ext.dependencies["retrofit2"]
-    implementation rootProject.ext.dependencies["adapter-rxjava2"]
-    implementation rootProject.ext.dependencies["converter-gson"]
-    implementation rootProject.ext.dependencies["rxjava2"]
-    implementation rootProject.ext.dependencies["rxlifecycle2"]
-    implementation rootProject.ext.dependencies["rxlifecomponents"]
-    implementation rootProject.ext.dependencies["rxandroid2"]
-    implementation rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["retrofit2"]
+    api rootProject.ext.dependencies["adapter-rxjava2"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["rxlifecycle2"]
+    api rootProject.ext.dependencies["rxlifecomponents"]
+    api rootProject.ext.dependencies["rxandroid2"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["greendao3"]
 }
